@@ -6,11 +6,11 @@ import RestaurantList from '../components/RestaurantList';
 
 const HomeScreen = () => {
   const [term, setTerm] = useState('');
-  const [searchApi, results, errorMsg] = useResults();
+  const [searchApi, restaurants, errorMsg] = useResults();
 
-  const filterResultsByPrice = price => {
-    return results.filter(result => {
-      return result.price && result.price.length === price.length;
+  const filterRestaurantsByPrice = price => {
+    return restaurants.filter(restaurant => {
+      return restaurant.price && restaurant.price.length === price.length;
     });
   };
 
@@ -26,12 +26,15 @@ const HomeScreen = () => {
 
       <ScrollView>
         <RestaurantList
-          results={filterResultsByPrice('$')}
+          restaurants={filterRestaurantsByPrice('$')}
           title="Cheapest"
         />
-        <RestaurantList results={filterResultsByPrice('$$')} title="Bit Pricier" />
         <RestaurantList
-          results={filterResultsByPrice('$$$')}
+          restaurants={filterRestaurantsByPrice('$$')}
+          title="Bit Pricier"
+        />
+        <RestaurantList
+          restaurants={filterRestaurantsByPrice('$$$')}
           title="Big Spender"
         />
       </ScrollView>

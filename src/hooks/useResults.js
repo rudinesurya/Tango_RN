@@ -11,7 +11,7 @@ export default () => {
         params: {
           term: searchTerm,
           location: 'Dublin',
-          limit: 50
+          limit: 20
         }
       });
       setResults(response.data.businesses);
@@ -24,5 +24,6 @@ export default () => {
     searchApi('deli');
   }, []);
 
-  return [searchApi, results, errorMsg];
+  const restaurants = results;
+  return [searchApi, restaurants, errorMsg];
 };
