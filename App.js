@@ -3,7 +3,7 @@ import { createStackNavigator, createAppContainer } from 'react-navigation';
 import HomeScreen from './src/screens/HomeScreen';
 import RestaurantDetailScreen from './src/screens/RestaurantDetailScreen';
 import { Provider } from 'react-redux';
-import { store } from './redux';
+import { store } from './src/redux';
 
 const navigator = createStackNavigator(
   {

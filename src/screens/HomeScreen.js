@@ -1,17 +1,18 @@
 import React, { useState, useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { View, Text, StyleSheet, ScrollView } from 'react-native';
+import { Text, StyleSheet, ScrollView } from 'react-native';
 import SearchBar from '../components/SearchBar';
 import RestaurantList from '../components/RestaurantList';
-import { fetchDataAction } from '../../redux';
+import { fetchRestaurantsAction } from '../reducers/catalogReducer';
 
 const HomeScreen = () => {
   const [term, setTerm] = useState('');
-  const restaurants = useSelector((state) => state);
+  const restaurants = useSelector((state) => state.catalog.restaurants);
+  const errorMsg = useSelector((state) => state.catalog.error);
   const dispatch = useDispatch();
 
   useEffect(() => {
-    dispatch(fetchDataAction('deli'))
+    dispatch(fetchRestaurantsAction('deli'))
   }, []);
 
   const filterRestaurantsByPrice = price => {
@@ -25,10 +26,10 @@ const HomeScreen = () => {
       <SearchBar
         searchText={term}
         onSearchChange={setTerm}
-        onSearchSubmit={() => dispatch(fetchDataAction(term))}
+        onSearchSubmit={() => dispatch(fetchRestaurantsAction(term))}
       />
 
-      {/* {errorMsg ? <Text>{errorMsg}</Text> : null} */}
+      {errorMsg ? <Text>{errorMsg}</Text> : null}
 
       <ScrollView>
         <RestaurantList
