@@ -1,26 +1,26 @@
 import React, { useState, useEffect } from 'react';
+import { useSelector, useDispatch } from 'react-redux';
 import { View, Text, StyleSheet, FlatList, Image } from 'react-native';
-import yelp from '../api/yelp';
+import { fetchRestaurantAction } from '../reducers/productReducer';
 
 const RestaurantDetailScreen = ({ navigation }) => {
-  const [result, setResult] = useState();
+  const restaurant = useSelector((state) => state.product.restaurant);
+  const loading = useSelector((state) => state.product.pending);
+  const errorMsg = useSelector((state) => state.product.error);
+  const dispatch = useDispatch();
+
   const id = navigation.getParam('id');
 
-  const getResult = async (id) => {
-    const response = await yelp.get(`/${id}`);
-    setResult(response.data);
-  }
-
   useEffect(() => {
-    getResult(id);
+    dispatch(fetchRestaurantAction(id))
   }, []);
 
-  if (!result)
+  if (loading || !restaurant)
     return null;
 
   return <View>
     <FlatList
-      data={result.photos}
+      data={restaurant.photos}
       keyExtractor={(photo) => photo}
       renderItem={({ item }) => {
         return <Image style={styles.image} source={{ uri: item }} />
