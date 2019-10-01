@@ -5,10 +5,10 @@ import SearchBar from '../components/SearchBar';
 import RestaurantList from '../components/RestaurantList';
 import { fetchRestaurantsAction } from '../reducers/catalogReducer';
 
-const HomeScreen = () => {
+const RestaurantListScreen = () => {
   const [term, setTerm] = useState('');
   const restaurants = useSelector((state) => state.catalog.restaurants);
-  const errorMsg = useSelector((state) => state.catalog.error);
+  const errorMessage = useSelector((state) => state.catalog.error);
   const dispatch = useDispatch();
 
   useEffect(() => {
@@ -29,7 +29,7 @@ const HomeScreen = () => {
         onSearchSubmit={() => dispatch(fetchRestaurantsAction(term))}
       />
 
-      {errorMsg ? <Text>{errorMsg}</Text> : null}
+      {errorMessage ? <Text>{errorMessage}</Text> : null}
 
       <ScrollView>
         <RestaurantList
@@ -49,7 +49,11 @@ const HomeScreen = () => {
   )
 };
 
+RestaurantListScreen.navigationOptions = {
+  title: 'Catalog'
+};
+
 const styles = StyleSheet.create({
 });
 
-export default HomeScreen;
+export default RestaurantListScreen;
