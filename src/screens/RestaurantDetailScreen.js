@@ -6,7 +6,7 @@ import { fetchRestaurantAction } from '../reducers/productReducer';
 const RestaurantDetailScreen = ({ navigation }) => {
   const restaurant = useSelector((state) => state.product.restaurant);
   const loading = useSelector((state) => state.product.pending);
-  const errorMsg = useSelector((state) => state.product.error);
+  const errorMessage = useSelector((state) => state.product.error);
   const dispatch = useDispatch();
 
   const id = navigation.getParam('id');
